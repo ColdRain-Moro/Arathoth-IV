@@ -1,0 +1,45 @@
+# 默认不开启 lore 功能
+# 正则扫描物品lore会让性能变差
+enable: false
+
+# 要扫描的背包槽位
+# 可以选择扫描全部槽位，但这样性能会差（用正则扫描背包所有物品的lore)
+# scan-inventory-items: all
+scan-inventory-items: [38, 39, 40, 41, "main-hand", "offhand"]
+
+# 在这里注册pattern
+# 可以不使用正则宏
+# 但你必须确保以下正则表达式包含 min max 两个命名捕获组
+# 尽量减少他们的数量以提升性能
+attributes:
+  # 可以有多个
+  damage:
+  - '[NUMBER-RANGE] [D|d]amage'
+  - '[NUMBER-RANGE] attack damage'
+  damage%: '[NUMBER-RANGE]% [D|d]amage'
+  armor: '[NUMBER-RANGE] [A|a]rmor'
+
+# 限制物品属性加载的条件,一个物品上的条件全部通过才会加载属性
+# 在非玩家生物上将忽略条件
+# 如果没有任何条件触发则默认不加载属性 (废话，难道你想要背包里的每个东西都被加载上属性吗)
+
+# 关于 Pattern: 在加载到插件中时会自动加上 (?: )
+# 也就是说 pattern 整体不会被看作一个捕获组
+# condition 中传入的参数即所有捕获组捕获到的值
+conditions:
+  level:
+    pattern: 'Level [NUMBER]'
+    condition: |
+      set "number" to type int element 0 of &params
+      check player level > &number
+
+  slot:
+    pattern: '装备\([VALUE]\)'
+    condition: |
+      set "type" to element 0 of &params
+      case &type [
+        when ["剑", "弓", "斧", "主手武器"] -> marco main-hand
+        when ["头盔", "胸甲", "护腿", "靴子"] -> marco slot [ 38, 39, 40, 41 ]
+        else false
+      ]
+    

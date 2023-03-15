@@ -1,0 +1,20 @@
+# 宏让插件对于没有开发经验的服主更加友好
+
+# 在这里定义正则宏
+# 在使用正则表达式时会自动替换
+regex:
+  NUMBER: '(\d+(?:\.\d+)?)'
+  NUMBER-RANGE: '(?<min>[-+]?\d+(?:\.\d+)?)(?:-?)((?<max>[-+]?\\d+(?:\.\d+)?)?)'
+  VALUE: '(\S+)'
+
+# 在这里定义 kether 宏，在其他地方可以使用 marco 语句进行宏的展开
+# 宏允许传入参数 使用 &params 获取参数列表
+# 宏中也允许使用将要替换到的上下文中的参数
+# 使用宏可以让您的 kether 语句更简洁易懂
+kether:
+  level: |
+    player level > element 0 of &params
+  slot: | 
+    any map param in &params with check &slot == param
+  main-hand: |
+    check &slot == $ 'sender.getInventory().getHolderItemSlot()'

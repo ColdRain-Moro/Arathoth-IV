@@ -1,0 +1,31 @@
+# 以下 kether 脚本中均可以使用以下变量
+# &item 物品实例
+# &slot 物品槽位
+example:
+  # 限制条件 以下达成才会加载属性
+  # 如果没有的话不会加载玩家属性
+  # 读取非玩家生物的属性时会忽略这个限制
+  limit: |
+    all [
+      check player level > 100
+      any [ 
+        marco slot [ 38 ] 
+        marco main-hand
+      ]
+    ]
+  attribute:
+    # + 15 伤害
+    damage: 15
+    # + 10~20 % 伤害
+    damage%: [10, 20]
+    # 也可以用 kether 进行动态计算
+    # 返回值可以是一个包含最大值最小值的数组，也可以是一个数字
+    # 示例中表示，手持时10~20护甲 头戴时50护甲
+    # 在计算怪物属性时是没有 &item &slot 两个变量的，注意适配
+    armor: |
+      if marco main-hand then {
+        [10, 20]
+      } else {
+        50
+      }
+    
