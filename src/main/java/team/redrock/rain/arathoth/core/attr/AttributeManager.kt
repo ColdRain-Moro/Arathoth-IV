@@ -1,10 +1,13 @@
 package team.redrock.rain.arathoth.core.attr
 
+import org.bukkit.Bukkit
 import org.bukkit.entity.Entity
+import org.bukkit.event.HandlerList
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import team.redrock.rain.arathoth.Arathoth
 import team.redrock.rain.arathoth.core.attr.loader.AttributeLoader
 import team.redrock.rain.arathoth.core.data.AttributeDataMap
 import team.redrock.rain.arathoth.core.data.ImmutableAttributeDataMap
@@ -40,11 +43,13 @@ object AttributeManager {
             sendError("存在重名属性: ${attr.name}, 拒绝注册后者")
             return
         }
+        Bukkit.getPluginManager().registerEvents(attr, Arathoth.pluginInst)
         registry[attr.name] = attr
     }
 
     private fun unregisterAll() {
         registry.forEach { (_, attr) ->
+            HandlerList.unregisterAll(attr)
             attr.onUnload()
         }
         registry.clear()

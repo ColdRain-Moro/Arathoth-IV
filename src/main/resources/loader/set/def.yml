@@ -15,14 +15,14 @@ example:
     ]
   attribute:
     # + 15 伤害
-    damage: 15
+    Damage: 15
     # + 10~20 % 伤害
-    damage%: [10, 20]
+    Damage%: [10, 20]
     # 也可以用 kether 进行动态计算
     # 返回值可以是一个包含最大值最小值的数组，也可以是一个数字
     # 示例中表示，手持时10~20护甲 头戴时50护甲
     # 在计算怪物属性时是没有 &item &slot 两个变量的，注意适配
-    armor: |
+    Armor: |
       if marco main-hand then {
         [10, 20]
       } else {

@@ -2,6 +2,7 @@ package team.redrock.rain.arathoth.core.attr
 
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
+import org.bukkit.event.Listener
 import team.redrock.rain.arathoth.Arathoth
 import java.io.File
 
@@ -12,7 +13,7 @@ import java.io.File
  * @author 寒雨
  * @since 2023/3/9 下午4:24
  */
-abstract class Attribute {
+abstract class Attribute : Listener {
     open val configFile: File by lazy {
         Arathoth.attributesDir.resolve("$name.yml")
     }

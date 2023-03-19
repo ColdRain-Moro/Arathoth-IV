@@ -37,8 +37,17 @@ open class AttributeData(
         return random(min(format), max(format))
     }
 
+    fun calculate(): Double {
+        val randomScalar = random(format = AttributeFormat.SCALAR)
+        return random(AttributeFormat.NUMBER) * (1 + randomScalar / 100)
+    }
+
     fun executeChance(): Boolean {
         return random(AttributeFormat.SCALAR) > random(0.0, 100.0)
+    }
+
+    fun cloneData(): AttributeData {
+        return AttributeData(values.toMutableMap())
     }
 }
 
