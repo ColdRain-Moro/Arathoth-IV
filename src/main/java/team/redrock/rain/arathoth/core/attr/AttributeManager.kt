@@ -7,6 +7,7 @@ import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import taboolib.common.platform.function.submit
 import team.redrock.rain.arathoth.Arathoth
 import team.redrock.rain.arathoth.core.attr.loader.AttributeLoader
 import team.redrock.rain.arathoth.core.data.AttributeDataMap
@@ -69,6 +70,7 @@ object AttributeManager {
                         ArathothEvents.PostLoad(src, entity, dataMap, loader).call()
                     }
                 }
+                submit { ArathothEvents.PostLoadAll(src, entity, dataMap).call() }
             }
         }
     }

@@ -32,6 +32,6 @@ object ListenerAttribute {
             // 优先级越高越后计算
             .sortedBy { it.property }
             .filterIsInstance<Damageable>()
-            .onEach { it.onAttack(e) }
+            .onEach { if (!e.isCancelled) it.onAttack(e) }
     }
 }

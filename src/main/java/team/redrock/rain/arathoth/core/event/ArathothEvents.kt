@@ -93,6 +93,20 @@ sealed class ArathothEvents : BukkitProxyEvent() {
     }
 
     /**
+     * 所有属性加载完成后回调该事件
+     *
+     * 该事件在主线程上唤起
+     *
+     */
+    class PostLoadAll(
+        val src: Entity,
+        val entity: Entity,
+        val dataMap: AttributeDataMap,
+    ) : ArathothEvents() {
+        override val allowCancelled: Boolean = false
+    }
+
+    /**
      * 唤起该事件可以触发一个实体的属性加载
      * 亦可监听该事件进行实体状态更新
      */

@@ -35,7 +35,7 @@ interface MapTool {
         return data(attr).random(format)
     }
 
-    fun gamble(attr: Attribute): Boolean {
-        return data(attr).executeChance()
+    fun value(attr: Attribute): Double {
+        return data(attr).random(AttributeFormat.NUMBER) * (1 + data(attr).random(AttributeFormat.SCALAR) / 100)
     }
 }

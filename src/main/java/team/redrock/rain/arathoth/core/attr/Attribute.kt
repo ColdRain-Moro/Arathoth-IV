@@ -18,7 +18,7 @@ abstract class Attribute : Listener {
         Arathoth.attributesDir.resolve("$name.yml")
     }
 
-    protected val config: FileConfiguration by lazy {
+    val config: FileConfiguration by lazy {
         if (!configFile.exists()) {
             configFile.createNewFile()
             YamlConfiguration.loadConfiguration(configFile)
